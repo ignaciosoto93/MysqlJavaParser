@@ -1,5 +1,6 @@
 package com.wallethub.domain.model.service.implementation;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AccesLogServiceImplementation implements AccesLogService {
 	}
 
 	@Override
-	public List<Long> findIpByDateAndThreshold(LocalDateTime startDate, long threshold, Duration duration) {
+	public List<BigInteger> findIpByDateAndThreshold(LocalDateTime startDate, long threshold, Duration duration) {
 		LocalDateTime endDate = startDate.plusHours(duration.getDurationInHours());
 		return accessRepository.findIpByDateAndThreShold(startDate, endDate, threshold);
 	}

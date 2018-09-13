@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,7 @@ public class Application implements CommandLineRunner {
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
 		CommandLine cmd = null;
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss");
 
 		try {
 			cmd = parser.parse(options, strings);
@@ -48,13 +49,13 @@ public class Application implements CommandLineRunner {
 			System.exit(1);
 		}
 
-		persistFile();
+		//	persistFile();
 		String startDateString = cmd.getOptionValue("s");
 		String durationString = cmd.getOptionValue("d");
 		String threshold = cmd.getOptionValue("t");
 		LocalDateTime startDate = LocalDateTime.parse(startDateString, dateFormatter);
 		Duration duration = Duration.valueOf(durationString);
-		List<Long> results = accesLogService.findIpByDateAndThreshold(startDate, Long.valueOf(threshold), duration);
+		List<BigInteger> results = accesLogService.findIpByDateAndThreshold(startDate, Long.valueOf(threshold), duration);
 		results.forEach(r -> System.out.println(InetAddresses.fromInteger(r.intValue()).getHostAddress()));
 
 	}

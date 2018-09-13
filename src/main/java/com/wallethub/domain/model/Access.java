@@ -11,7 +11,7 @@ import javax.persistence.Table;
 	   indexes = { @Index(columnList = "date", name = "dateTimeIndex"), @Index(columnList = "ip", name = "ipIndex") })
 
 public class Access extends BaseEntity {
-	@Column(columnDefinition = "INT(11) UNSIGNED")
+	@Column(columnDefinition = "INT(4) UNSIGNED")
 	private Long ip;
 	@Column(columnDefinition = "Timestamp(3)")
 	private LocalDateTime date;

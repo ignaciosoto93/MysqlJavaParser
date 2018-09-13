@@ -1,5 +1,6 @@
 package com.wallethub.domain.model.service;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.wallethub.domain.model.Access;
@@ -11,5 +12,5 @@ public interface AccesLogService {
 
 	void saveAccesLogList(List<Access> accessList);
 
-	List<Long> findIpByDateAndThreshold(LocalDateTime date, long threshold, Duration duration);
+	List<BigInteger> findIpByDateAndThreshold(LocalDateTime date, long threshold, Duration duration);
 }
