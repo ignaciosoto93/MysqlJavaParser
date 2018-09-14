@@ -1,4 +1,4 @@
-package com.wallethub.domain.model.repository;
+package com.wallethub.domain.repository;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ public interface AccessRepository extends JpaRepository<Access, Long> {
 
 	@Query(value = "Select  l.ip as IP from logs_table l" + " where l.date BETWEEN :startDate and :endDate"
 			+ " GROUP BY ip " + "HAVING COUNT(l.date) > :threshold", nativeQuery = true)
-	List<BigInteger> findIpByDateAndThreShold(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate,
+	List<BigInteger> findIpByDateAndThreshold(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate,
 			@Param("threshold") long threshold);
 
 }

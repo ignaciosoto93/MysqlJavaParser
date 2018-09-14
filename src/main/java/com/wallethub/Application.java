@@ -5,10 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.InetAddress;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.cli.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,15 +16,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import builder.OptionsFactory;
 import com.google.common.collect.Lists;
 import com.google.common.net.InetAddresses;
+import com.wallethub.adapter.BlockedIPAdapter;
+import com.wallethub.adapter.BufferAccessAdapter;
+import com.wallethub.adapter.CmdArgumentsAdapter;
 import com.wallethub.domain.model.Access;
-import com.wallethub.domain.model.service.AccesLogService;
-import com.wallethub.domain.model.service.implementation.Duration;
+import com.wallethub.domain.dto.FindIpDto;
+import com.wallethub.domain.model.BlockedIP;
+import com.wallethub.domain.service.AccessLogService;
+import com.wallethub.domain.service.BlockedIPService;
+import com.wallethub.exception.JavaMysqlParserError;
+import com.wallethub.exception.JavaMysqlParserException;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
 	@Autowired
-	AccesLogService accesLogService;
+	AccessLogService accessLogService;
+	@Autowired
+	BlockedIPService blockedIPService;
 
 	public static void main(String[] args) throws IOException, java.text.ParseException {
 		SpringApplication.run(Application.class, args);
@@ -33,12 +41,11 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		Options options = new OptionsFactory().withDuration().withStartDate().withThreShold().getOptions();
+		Options options = new OptionsFactory().withDuration().withStartDate().withThreShold().withPath().getOptions();
 
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
 		CommandLine cmd = null;
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss");
 
 		try {
 			cmd = parser.parse(options, strings);
@@ -49,49 +56,49 @@ public class Application implements CommandLineRunner {
 			System.exit(1);
 		}
 
-		//	persistFile();
-		String startDateString = cmd.getOptionValue("s");
-		String durationString = cmd.getOptionValue("d");
-		String threshold = cmd.getOptionValue("t");
-		LocalDateTime startDate = LocalDateTime.parse(startDateString, dateFormatter);
-		Duration duration = Duration.valueOf(durationString);
-		List<BigInteger> results = accesLogService.findIpByDateAndThreshold(startDate, Long.valueOf(threshold), duration);
+		persistFile(cmd.getOptionValue("p"));
+		FindIpDto findIpDto = CmdArgumentsAdapter.adapt(cmd);
+
+		List<BigInteger> results = accessLogService.findIpByDateAndThreshold(findIpDto);
+		List<BlockedIP> blockedIPS = results.stream().map(ip -> BlockedIPAdapter.adapt(ip, findIpDto))
+				.collect(Collectors.toList());
+
+		blockedIPService.saveBlockedIPList(blockedIPS);
+
 		results.forEach(r -> System.out.println(InetAddresses.fromInteger(r.intValue()).getHostAddress()));
 
 	}
 
-	private void persistFile() throws IOException {
-		FileReader input = null;
-		try {
-			input = new FileReader("./Java_MySQL_Test/access.log");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		BufferedReader bufRead = new BufferedReader(input);
-		String myLine = null;
-
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+	private void persistFile(String path) throws IOException {
+		BufferedReader bufRead = new BufferedReaderFactory(path).invoke();
 
 		List<Access> list = Lists.newArrayList();
-
+		String myLine;
 		while ((myLine = bufRead.readLine()) != null) {
-			String[] split = myLine.split("\\|");
-
-			InetAddress IP = InetAddress.getByName(split[1]);
-			Long integerAddress = getUnsignedInt(InetAddresses.coerceToInteger(IP));
-			String desc = split[2];
-
-			LocalDateTime dateTime = LocalDateTime.parse(split[0], dateFormatter);
-			Access access = Access.builder().withIp(integerAddress).withDate(dateTime).withRequestInfo(desc)
-					.withResponseStatus(split[3]).withExtraInfo(split[4]).build();
+			Access access = new BufferAccessAdapter(myLine).invoke();
 			list.add(access);
 
 		}
-		accesLogService.saveAccesLogList(list);
+		accessLogService.saveAccesLogList(list);
 	}
 
-	public static long getUnsignedInt(int x) {
-		return x & 0x00000000ffffffffL;
+	private class BufferedReaderFactory {
+		private String path;
+
+		public BufferedReaderFactory(String path) {
+			this.path = path;
+		}
+
+		public BufferedReader invoke() {
+			FileReader input = null;
+			try {
+				input = new FileReader(path);
+			} catch (FileNotFoundException e) {
+				throw new JavaMysqlParserException(JavaMysqlParserError.INVALID_PATH, "Invalid Path");
+			}
+			return new BufferedReader(input);
+		}
 	}
+
 }
 

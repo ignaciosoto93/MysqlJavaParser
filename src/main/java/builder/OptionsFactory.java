@@ -1,5 +1,6 @@
 package builder;
 
+import java.util.Date;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -18,13 +19,20 @@ public class OptionsFactory {
 	public OptionsFactory withDuration() {
 		options.addOption(
 				Option.builder("d").longOpt("duration").hasArg(true).required(true).desc("duration since startDate")
-						.build());
+						.type(Date.class).build());
 		return this;
 	}
 
 	public OptionsFactory withThreShold() {
 		options.addOption(Option.builder("t").longOpt("threshold").hasArg(true).required(true)
 				.desc("minimum number of request for such IP").build());
+		return this;
+	}
+
+	public OptionsFactory withPath() {
+		options.addOption(
+				Option.builder("p").longOpt("path").hasArg(true).required(true).desc("path where the log is located")
+						.build());
 		return this;
 	}
 

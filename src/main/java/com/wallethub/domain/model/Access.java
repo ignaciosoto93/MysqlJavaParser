@@ -5,13 +5,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import com.wallethub.domain.BaseEntity;
 
 @Entity
 @Table(name = "logsTable",
 	   indexes = { @Index(columnList = "date", name = "dateTimeIndex"), @Index(columnList = "ip", name = "ipIndex") })
 
 public class Access extends BaseEntity {
-	@Column(columnDefinition = "INT(4) UNSIGNED")
+	@Column(columnDefinition = "BIGINT UNSIGNED")
 	private Long ip;
 	@Column(columnDefinition = "Timestamp(3)")
 	private LocalDateTime date;

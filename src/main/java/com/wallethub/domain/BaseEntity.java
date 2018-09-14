@@ -1,4 +1,4 @@
-package com.wallethub.domain.model;
+package com.wallethub.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;

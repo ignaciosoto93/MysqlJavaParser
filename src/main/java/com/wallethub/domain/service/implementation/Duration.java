@@ -1,4 +1,4 @@
-package com.wallethub.domain.model.service.implementation;
+package com.wallethub.domain.service.implementation;
 
 public enum Duration {
 	daily {
