@@ -1,7 +1,7 @@
-package com.wallethub.domain.dto;
+package com.ef.Parser.domain.dto;
 
 import java.time.LocalDateTime;
-import com.wallethub.domain.service.implementation.Duration;
+import com.ef.Parser.domain.service.implementation.Duration;
 
 public class FindIpDto {
 

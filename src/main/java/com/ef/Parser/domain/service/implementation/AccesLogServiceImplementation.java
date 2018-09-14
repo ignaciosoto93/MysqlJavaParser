@@ -1,14 +1,14 @@
-package com.wallethub.domain.service.implementation;
+package com.ef.Parser.domain.service.implementation;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.wallethub.domain.dto.FindIpDto;
-import com.wallethub.domain.model.Access;
-import com.wallethub.domain.repository.AccessRepository;
-import com.wallethub.domain.service.AccessLogService;
+import com.ef.Parser.domain.dto.FindIpDto;
+import com.ef.Parser.domain.model.Access;
+import com.ef.Parser.domain.repository.AccessRepository;
+import com.ef.Parser.domain.service.AccessLogService;
 
 @Service
 public class AccesLogServiceImplementation implements AccessLogService {

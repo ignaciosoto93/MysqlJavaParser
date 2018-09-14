@@ -1,11 +1,10 @@
-package com.wallethub;
+package com.ef.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.cli.*;
@@ -13,19 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import builder.OptionsFactory;
+import com.ef.Parser.builder.OptionsFactory;
+import com.ef.Parser.adapter.BlockedIPAdapter;
+import com.ef.Parser.adapter.CmdArgumentsAdapter;
+import com.ef.Parser.domain.service.AccessLogService;
 import com.google.common.collect.Lists;
 import com.google.common.net.InetAddresses;
-import com.wallethub.adapter.BlockedIPAdapter;
-import com.wallethub.adapter.BufferAccessAdapter;
-import com.wallethub.adapter.CmdArgumentsAdapter;
-import com.wallethub.domain.model.Access;
-import com.wallethub.domain.dto.FindIpDto;
-import com.wallethub.domain.model.BlockedIP;
-import com.wallethub.domain.service.AccessLogService;
-import com.wallethub.domain.service.BlockedIPService;
-import com.wallethub.exception.JavaMysqlParserError;
-import com.wallethub.exception.JavaMysqlParserException;
+import com.ef.Parser.adapter.BufferAccessAdapter;
+import com.ef.Parser.domain.model.Access;
+import com.ef.Parser.domain.dto.FindIpDto;
+import com.ef.Parser.domain.model.BlockedIP;
+import com.ef.Parser.domain.service.BlockedIPService;
+import com.ef.Parser.exception.JavaMysqlParserError;
+import com.ef.Parser.exception.JavaMysqlParserException;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {

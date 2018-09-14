@@ -1,7 +1,7 @@
-package com.wallethub.domain.service;
+package com.ef.Parser.domain.service;
 
 import java.util.List;
-import com.wallethub.domain.model.BlockedIP;
+import com.ef.Parser.domain.model.BlockedIP;
 
 public interface BlockedIPService {
 

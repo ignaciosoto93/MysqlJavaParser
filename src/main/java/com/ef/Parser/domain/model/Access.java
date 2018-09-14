@@ -1,11 +1,11 @@
-package com.wallethub.domain.model;
+package com.ef.Parser.domain.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import com.wallethub.domain.BaseEntity;
+import com.ef.Parser.domain.BaseEntity;
 
 @Entity
 @Table(name = "logsTable",

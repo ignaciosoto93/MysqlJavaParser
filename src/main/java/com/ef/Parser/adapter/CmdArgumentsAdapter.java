@@ -1,10 +1,10 @@
-package com.wallethub.adapter;
+package com.ef.Parser.adapter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.apache.commons.cli.CommandLine;
-import com.wallethub.domain.dto.FindIpDto;
-import com.wallethub.domain.service.implementation.Duration;
+import com.ef.Parser.domain.service.implementation.Duration;
+import com.ef.Parser.domain.dto.FindIpDto;
 
 public class CmdArgumentsAdapter {
 

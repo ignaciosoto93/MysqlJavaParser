@@ -1,6 +1,6 @@
-package com.wallethub.exception;
+package com.ef.Parser.exception;
 
-import com.wallethub.BaseRuntimeException;
+import com.ef.Parser.BaseRuntimeException;
 
 public class JavaMysqlParserException extends BaseRuntimeException {
 

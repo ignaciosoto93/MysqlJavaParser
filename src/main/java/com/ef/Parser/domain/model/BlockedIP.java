@@ -1,10 +1,10 @@
-package com.wallethub.domain.model;
+package com.ef.Parser.domain.model;
 
 import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import com.wallethub.domain.BaseEntity;
+import com.ef.Parser.domain.BaseEntity;
 
 @Entity
 @Table(name = "blockedIP")

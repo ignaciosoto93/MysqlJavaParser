@@ -1,4 +1,4 @@
-package com.wallethub.exception;
+package com.ef.Parser.exception;
 
 public enum JavaMysqlParserError {
 	UNKNOWN(1, "Unknow Error"), NOT_VALID_ARGUMENTS(2, "Please, check the provided arguments"),

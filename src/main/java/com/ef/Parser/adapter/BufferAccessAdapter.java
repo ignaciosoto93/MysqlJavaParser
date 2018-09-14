@@ -1,13 +1,13 @@
-package com.wallethub.adapter;
+package com.ef.Parser.adapter;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import com.ef.Parser.domain.model.Access;
+import com.ef.Parser.exception.JavaMysqlParserError;
+import com.ef.Parser.exception.JavaMysqlParserException;
 import com.google.common.net.InetAddresses;
-import com.wallethub.domain.model.Access;
-import com.wallethub.exception.JavaMysqlParserError;
-import com.wallethub.exception.JavaMysqlParserException;
 
 public class BufferAccessAdapter {
 	private String myLine;

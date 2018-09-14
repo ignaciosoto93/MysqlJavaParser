@@ -1,9 +1,9 @@
-package com.wallethub.domain.service;
+package com.ef.Parser.domain.service;
 
 import java.math.BigInteger;
 import java.util.List;
-import com.wallethub.domain.dto.FindIpDto;
-import com.wallethub.domain.model.Access;
+import com.ef.Parser.domain.dto.FindIpDto;
+import com.ef.Parser.domain.model.Access;
 
 public interface AccessLogService {
 

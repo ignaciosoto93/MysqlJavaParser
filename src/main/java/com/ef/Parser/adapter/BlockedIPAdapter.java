@@ -1,8 +1,8 @@
-package com.wallethub.adapter;
+package com.ef.Parser.adapter;
 
 import java.math.BigInteger;
-import com.wallethub.domain.dto.FindIpDto;
-import com.wallethub.domain.model.BlockedIP;
+import com.ef.Parser.domain.dto.FindIpDto;
+import com.ef.Parser.domain.model.BlockedIP;
 
 public class BlockedIPAdapter {
 

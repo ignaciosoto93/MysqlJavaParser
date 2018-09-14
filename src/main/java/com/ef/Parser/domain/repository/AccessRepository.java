@@ -1,4 +1,4 @@
-package com.wallethub.domain.repository;
+package com.ef.Parser.domain.repository;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.wallethub.domain.model.Access;
+import com.ef.Parser.domain.model.Access;
 
 @Repository
 public interface AccessRepository extends JpaRepository<Access, Long> {

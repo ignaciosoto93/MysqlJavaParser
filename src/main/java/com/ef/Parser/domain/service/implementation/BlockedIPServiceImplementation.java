@@ -1,11 +1,11 @@
-package com.wallethub.domain.service.implementation;
+package com.ef.Parser.domain.service.implementation;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.wallethub.domain.model.BlockedIP;
-import com.wallethub.domain.repository.BlockedIPRepository;
-import com.wallethub.domain.service.BlockedIPService;
+import com.ef.Parser.domain.repository.BlockedIPRepository;
+import com.ef.Parser.domain.service.BlockedIPService;
+import com.ef.Parser.domain.model.BlockedIP;
 
 @Service
 public class BlockedIPServiceImplementation implements BlockedIPService {

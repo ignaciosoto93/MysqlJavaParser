@@ -1,4 +1,4 @@
-package com.wallethub;
+package com.ef.Parser;
 
 public abstract class BaseRuntimeException extends RuntimeException {
 
