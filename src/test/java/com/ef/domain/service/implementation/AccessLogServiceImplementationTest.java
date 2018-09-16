@@ -11,6 +11,7 @@ import org.mockito.*;
 import com.ef.domain.dto.FindIpDto;
 import com.ef.domain.model.Access;
 import com.ef.domain.repository.AccessRepository;
+import com.ef.exception.ParserException;
 import com.google.common.collect.Lists;
 
 public class AccessLogServiceImplementationTest {
@@ -34,7 +35,7 @@ public class AccessLogServiceImplementationTest {
 	}
 
 	@Test
-	public void findIpByDateAndThresholdDaily() throws Exception {
+	public void findIpByDateAndThresholdDaily() throws ParserException {
 		List<BigInteger> list = Lists.newArrayList();
 		LocalDateTime now = LocalDateTime.now();
 		FindIpDto findIpDto = FindIpDto.builder().withStartDate(now).withThreshold(100l).withDuration(Duration.daily)
@@ -45,6 +46,21 @@ public class AccessLogServiceImplementationTest {
 		instance.findIpByDateAndThreshold(findIpDto);
 		Mockito.verify(accessRepository, times(1))
 				.findIpByDateAndThreshold(findIpDto.getStartDate(), findIpDto.getStartDate().plusHours(24),
+						findIpDto.getThreshold());
+
+	}
+	@Test
+	public void findIpByDateAndThresholdHourly() throws ParserException {
+		List<BigInteger> list = Lists.newArrayList();
+		LocalDateTime now = LocalDateTime.now();
+		FindIpDto findIpDto = FindIpDto.builder().withStartDate(now).withThreshold(100l).withDuration(Duration.hourly)
+				.build();
+		Mockito.when(accessRepository
+				.findIpByDateAndThreshold(any(LocalDateTime.class), any(LocalDateTime.class), any(Long.class)))
+				.thenReturn(list);
+		instance.findIpByDateAndThreshold(findIpDto);
+		Mockito.verify(accessRepository, times(1))
+				.findIpByDateAndThreshold(findIpDto.getStartDate(), findIpDto.getStartDate().plusHours(1),
 						findIpDto.getThreshold());
 
 	}
